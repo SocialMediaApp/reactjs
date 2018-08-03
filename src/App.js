@@ -7,6 +7,8 @@ import { ProfilePage } from './Pages/Profile';
 import { HeaderComponent } from './Components/Header';
 import { FooterComponent } from './Components/Footer';
 
+import 'bulma/css/bulma.css';
+
 class App extends Component {
   render() {
     return (
