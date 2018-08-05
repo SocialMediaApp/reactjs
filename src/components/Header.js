@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AvatarComponent from './Avatar';
+import { AvatarComponent } from './Avatar';
 import { Link } from 'react-router-dom';
 import connect from '../../node_modules/react-redux/lib/connect/connect';
 import { logout } from '../store/auth';
@@ -38,7 +38,7 @@ export class HeaderComponentPresenter extends Component {
     if (this.props.user && this.props.user.uid) {
       userOptions = (<div className="navbar-end">
         <Link className="navbar-item" to="/profile">
-          <AvatarComponent />
+          <AvatarComponent uid={this.props.user.uid}/>
           {this.props.user.name}
         </Link>
         <a className="navbar-item">

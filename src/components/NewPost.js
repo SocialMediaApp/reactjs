@@ -29,6 +29,7 @@ export class NewPostComponentPresenter extends Component {
       <article className="media">
         <figure className="media-left">
           <p className="image is-64x64">
+            {/* TODO figure out why this isn't passing correctly */}
             <AvatarComponent uid={this.props.user.uid} />
           </p>
         </figure>
