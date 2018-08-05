@@ -8,7 +8,7 @@ function mapStateToProps(state) {
   }
 }
 
-export class AuthRoutePresentor extends Component {
+export class AuthRoutePresenter extends Component {
   render () {
     if (this.props.isAuthenticated) {
       return <Route {...this.props}/>
@@ -20,4 +20,4 @@ export class AuthRoutePresentor extends Component {
 
 export const AuthRoute = connect(
   mapStateToProps
-)(AuthRoutePresentor);
+)(AuthRoutePresenter);

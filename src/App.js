@@ -9,6 +9,7 @@ import { ProfilePage } from './pages/Profile';
 
 // Components
 import { AuthRoute } from './higher-order/AuthRoute';
+import { AuthSubscription } from './higher-order/AuthSubscription';
 import { HeaderComponent } from './components/Header';
 import { FooterComponent } from './components/Footer';
 
@@ -20,7 +21,7 @@ import 'font-awesome/css/font-awesome.css';
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <AuthSubscription className="app">
         <HeaderComponent/>
         <Switch>
           <AuthRoute path="/newsfeed" component={NewsfeedPage}></AuthRoute>
@@ -29,7 +30,7 @@ class App extends Component {
           <AuthRoute path="*" render={() => <Redirect to="/newsfeed" />} />
         </Switch>
         <FooterComponent/>
-      </div>
+      </AuthSubscription>
     );
   }
 }

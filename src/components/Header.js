@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
 import AvatarComponent from './Avatar';
 import { Link } from 'react-router-dom';
+import connect from '../../node_modules/react-redux/lib/connect/connect';
+import { logout } from '../store/auth';
 
-export class HeaderComponent extends Component {
+function mapStateToProps(state) {
+  return {
+    user: state.auth.user
+  }
+}
+
+export class HeaderComponentPresenter extends Component {
   constructor (props) {
     super(props);
     this.state = {
@@ -24,11 +32,26 @@ export class HeaderComponent extends Component {
     console.log('open messages');
   }
 
-  logout = () => {
-    console.log('logout');
-  }
-
   render () {
+    let userOptions;
+
+    if (this.props.user && this.props.user.uid) {
+      userOptions = (<div className="navbar-end">
+        <Link className="navbar-item" to="/profile">
+          <AvatarComponent />
+          {this.props.user.name}
+        </Link>
+        <a className="navbar-item">
+          <span className="badge is-badge-danger" data-badge="2" onClick={this.openMessages}>
+            Messages
+          </span>
+        </a>
+        <a onClick={this.props.logout} className="navbar-item">
+          Logout
+        </a>
+      </div>);
+    }
+
     return(
       <nav className="navbar has-shadow is-primary" role="dropdown navigation">
         <div className="navbar-brand">
@@ -44,25 +67,14 @@ export class HeaderComponent extends Component {
         </div>
         <div className={'navbar-menu' + (this.state.navIsActive ? 'is-active': '')} 
           onClick={this.hideNav}>
-          {/* todo if user && user.uid */}
-          <div className="navbar-end">
-            <Link className="navbar-item" to="/profile">
-              <AvatarComponent />
-              Tim Waite
-            </Link>
-            <a className="navbar-item">
-              <span className="badge is-badge-danger" data-badge="2" onClick={this.openMessages}>
-                Messages
-              </span>
-            </a>
-            <a onClick={this.logout} className="navbar-item">
-              Logout
-            </a>
-          </div>
+          {userOptions}
         </div>
       </nav>
     )
   }
 }
 
-export default HeaderComponent;
+export const HeaderComponent = connect(
+  mapStateToProps,
+  { logout } 
+)(HeaderComponentPresenter);

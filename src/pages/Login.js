@@ -9,12 +9,6 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    loginWithGoogle: () => dispatch(loginWithGoogle())
-  }
-}
-
 export class LoginPagePresenter extends Component {
   googleSignIn = () => {
     this.props.loginWithGoogle();
@@ -48,5 +42,5 @@ export class LoginPagePresenter extends Component {
 
 export const LoginPage = connect(
   mapStateToProps,
-  mapDispatchToProps
+  { loginWithGoogle }
 )(LoginPagePresenter);
