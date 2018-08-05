@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
+import { PostsComponent } from '../components/Posts';
+import { NewPostComponent } from '../components/NewPost';
 
 export class NewsfeedPage extends Component {
   render () {
-    return <h1>Newsfeed</h1>
+    return (
+      <div className="content">
+        <div className="section">
+          <NewPostComponent />
+          <PostsComponent />
+        </div>
+      </div>
+    )
   }
 }
 

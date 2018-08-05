@@ -59,13 +59,13 @@ export class HeaderComponentPresenter extends Component {
             <p className="title has-text-white">SMA</p>
           </Link>
           <div
-            className={'navbar-burger' + (this.state.navIsActive ? 'is-active' : '')}
+            className={'navbar-burger ' + (this.state.navIsActive ? 'is-active' : '')}
             onClick={this.toggleNav}>
             <span></span>
             <span></span>
           </div>
         </div>
-        <div className={'navbar-menu' + (this.state.navIsActive ? 'is-active': '')} 
+        <div className={'navbar-menu ' + (this.state.navIsActive ? 'is-active': '')} 
           onClick={this.hideNav}>
           {userOptions}
         </div>
