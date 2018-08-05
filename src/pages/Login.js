@@ -1,18 +1,27 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
-import auth from '../services/auth';
+import { connect } from 'react-redux';
+import { loginWithGoogle } from '../store/auth';
 
-export class LoginPage extends Component {
-  googleSignIn = () => {
-    auth.loginWithGoogle();
+function mapStateToProps(state) {
+  return {
+    isAuthenticated: state.auth.isAuthenticated
   }
+}
 
-  isAuthenticated = () => {
-    return auth.isAuthenticated();
+function mapDispatchToProps(dispatch) {
+  return {
+    loginWithGoogle: () => dispatch(loginWithGoogle())
+  }
+}
+
+export class LoginPagePresenter extends Component {
+  googleSignIn = () => {
+    this.props.loginWithGoogle();
   }
 
   render() {
-    if (this.isAuthenticated()) {
+    if (this.props.isAuthenticated) {
       return <Redirect to="/newsfeed" />
     } else {
       return (
@@ -37,4 +46,7 @@ export class LoginPage extends Component {
   }
 }
 
-export default LoginPage;
+export const LoginPage = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginPagePresenter);

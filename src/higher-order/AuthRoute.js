@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router';
-import auth from '../services/auth';
+import { connect } from 'react-redux';
 
-export class AuthRoute extends Component {
+function mapStateToProps(state) {
+  return {
+    isAuthenticated: state.auth.isAuthenticated
+  }
+}
+
+export class AuthRoutePresentor extends Component {
   render () {
-    if (auth.isAuthenticated()) {
+    if (this.props.isAuthenticated) {
       return <Route {...this.props}/>
     } else {
       return <Redirect to="/login" />
@@ -12,4 +18,6 @@ export class AuthRoute extends Component {
   }
 }
 
-export default AuthRoute;
+export const AuthRoute = connect(
+  mapStateToProps
+)(AuthRoutePresentor);

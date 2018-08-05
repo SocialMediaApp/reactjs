@@ -1,14 +1,21 @@
+// React
 import React, { Component } from 'react';
 import { Route, Redirect, Switch } from 'react-router';
+
+// Pages
 import { LoginPage } from './pages/Login';
-import { AuthRoute } from './higher-order/AuthRoute';
 import { NewsfeedPage } from './pages/Newsfeed';
 import { ProfilePage } from './pages/Profile';
+
+// Components
+import { AuthRoute } from './higher-order/AuthRoute';
 import { HeaderComponent } from './components/Header';
 import { FooterComponent } from './components/Footer';
-import './firebase';
 
+// 3rd Party
+import './firebase';
 import 'bulma/css/bulma.css';
+import 'font-awesome/css/font-awesome.css';
 
 class App extends Component {
   render() {
