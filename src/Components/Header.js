@@ -30,7 +30,7 @@ export class HeaderComponent extends Component {
 
   render () {
     return(
-      <nav className="navbar has-shadow is-primary is-fixed-top" role="dropdown navigation">
+      <nav className="navbar has-shadow is-primary" role="dropdown navigation">
         <div className="navbar-brand">
           <Link className="navbar-item" to="/">
             <p className="title has-text-white">SMA</p>
