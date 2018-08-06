@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import { auth, db } from '../firebase';
 
 // Actions
 const AUTHENTICATE = 'AUTHENTICATE';
@@ -50,10 +50,10 @@ export default function reducer (state = initialState, action = {}) {
 // Side effects
 export function subscribeToAuth () {
   return (dispatch, getState) => {
-    firebase.auth().onAuthStateChanged(user => {
+    auth.onAuthStateChanged(user => {
       if (user) {
         // we're signed in
-        firebase.firestore().collection('users').doc(user.uid).get().then(doc => {
+        db.collection('users').doc(user.uid).get().then(doc => {
           dispatch(authenticate(doc.data().uid, doc.data().name));
         })
       } else {
@@ -67,10 +67,10 @@ export function subscribeToAuth () {
 
 export function loginWithGoogle () {
   return dispatch => {
-    let provider = new firebase.auth.GoogleAuthProvider();
+    let provider = new auth.GoogleAuthProvider();
 
-    firebase.auth().signInWithPopup(provider).then(result => {
-      firebase.firestore().collection('users').doc(result.user.uid).get().then(doc => {
+    auth.signInWithPopup(provider).then(result => {
+      db.collection('users').doc(result.user.uid).get().then(doc => {
         if (!doc.exists) {
           debugger
           this.create({
@@ -91,7 +91,7 @@ export function loginWithGoogle () {
 
 export function logout () {
   return dispatch => {
-    firebase.auth().signOut().then(() => {
+    auth.signOut().then(() => {
       dispatch(unathenticate());
     }).catch(err => {
       // TODO toasty
