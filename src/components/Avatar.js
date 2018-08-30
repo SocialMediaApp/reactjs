@@ -11,12 +11,21 @@ export class AvatarComponent extends Component {
     }
   }
 
-  componentDidMount () {
-    if (!this.props.uid) return;
+  getAvatar() {
     this.setState({loading: true});
     getAvatarUrl(this.props.uid).then(url => {
       this.setState({avatar: url});
     }).finally(() => this.setState({loading: false}));
+  }
+
+  componentDidMount () {
+    this.getAvatar();
+  }
+
+  componentDidUpdate (prevProps) {
+    if (this.props.uid !== prevProps.uid) {
+      this.getAvatar();
+    }
   }
 
   render() {

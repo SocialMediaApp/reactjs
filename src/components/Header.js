@@ -39,7 +39,7 @@ export class HeaderComponentPresenter extends Component {
       userOptions = (<div className="navbar-end">
         <Link className="navbar-item" to="/profile">
           <AvatarComponent uid={this.props.user.uid}/>
-          {this.props.user.name}
+          <span style={{paddingLeft: '5px'}}>{this.props.user.name}</span>
         </Link>
         <a className="navbar-item">
           <span className="badge is-badge-danger" data-badge="2" onClick={this.openMessages}>

@@ -10,7 +10,7 @@ function mapStateToProps(state) {
 }
 
 export class NewPostComponentPresenter extends Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {text: ''};
@@ -22,6 +22,7 @@ export class NewPostComponentPresenter extends Component {
 
   submit = () => {
     this.props.createTextPost(this.state.text, this.props.user)
+    this.setState({text: ''});
   }
 
   render() {
