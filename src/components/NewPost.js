@@ -30,14 +30,13 @@ export class NewPostComponentPresenter extends Component {
       <article className="media">
         <figure className="media-left">
           <p className="image is-64x64">
-            {/* TODO figure out why this isn't passing correctly */}
             <AvatarComponent uid={this.props.user.uid} />
           </p>
         </figure>
         <div className="media-content">
           <div className="field">
             <p className="control">
-              <textarea className="textarea" value={this.state.value} onChange={this.changeText}>
+              <textarea className="textarea" value={this.state.text} onChange={this.changeText}>
               </textarea>
             </p>
           </div>
