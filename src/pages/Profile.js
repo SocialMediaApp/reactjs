@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import AvatarEditor from 'react-avatar-editor';
 import { connect } from 'react-redux';
 import { updateCurrentUser } from '../store/auth';
+import { getAvatarUrl } from '../services/avatar';
 
 function mapStateToProps(state) {
   return {
@@ -17,7 +19,12 @@ export class ProfilePagePresenter extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {name: ''};
+    this.state = {
+      name: '',
+      avatarUrl: '',
+      width: 0,
+      scale: 1,
+    };
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -28,6 +35,24 @@ export class ProfilePagePresenter extends Component {
       }
     }
     return state;
+  }
+
+  componentDidMount () {
+    this.getAvatar();
+  }
+
+  componentDidUpdate (prevProps) {
+    if (this.props.user.uid !== prevProps.user.uid) {
+      this.getAvatar();
+    }
+  }
+
+  getAvatar = () => {
+    if (this.props.user.uid) {
+      getAvatarUrl(this.props.user.uid).then(url => {
+        this.setState({avatarUrl: url});
+      });
+    }
   }
 
   changeName = (e) => {
@@ -47,30 +72,14 @@ export class ProfilePagePresenter extends Component {
     // TODO: toasty
   }
 
+  zoom = (e) => {
+    console.log(e)
+  }
+
   render() {
     return (
       <section className="section">
         <div className="container is-fluid">
-          {/* <b-field label="Name">
-            <b-input v-model="name"></b-input>
-          </b-field>
-          <b-field label="Avatar">
-            <figure class="image">
-              <croppa 
-                v-model="file"
-                canvas-color="whitesmoke"
-                accept="image/*"
-                :placeholder-font-size="12"
-                :show-remove-button="false"
-                :prevent-white-space="true">
-              </croppa>
-              <button 
-                @click="file.chooseFile()" 
-                class="button is-primary">
-                Upload Avatar
-              </button>
-            </figure>
-          </b-field> */}
           <div className="field">
             <div className="control">
               <input
@@ -79,6 +88,20 @@ export class ProfilePagePresenter extends Component {
                 value={this.state.name}
                 onChange={this.changeName}/>
             </div>
+          </div>
+          <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+            <AvatarEditor
+              image={this.state.avatarUrl}
+              width={350}
+              height={350}
+              scale={this.state.scale}
+              onWheel={this.zoom}
+              border={0}/>
+              <button
+                style={{width: "350px", margin: ".5rem 0"}}
+                className="button is-primary">
+                Upload Avatar
+              </button>
           </div>
           <div className="level">
             <div className="level-left"></div>
